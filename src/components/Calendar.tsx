@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { format, startOfWeek, isSameDay } from 'date-fns'
+import { enUS } from 'date-fns/locale'
 import clsx from 'clsx'
 import { CalendarProps, CalendarView, DateRange } from '../types'
 import { CalendarHeader } from './CalendarHeader'
@@ -323,7 +324,7 @@ export const Calendar: React.FC<CalendarProps> = ({
             {showWeekNumbers && <div className="rcp-calendar__week-number-header">#</div>}
             {weekHeaders.map((day) => (
               <div key={day.toISOString()} className="rcp-calendar__weekday">
-                {format(day, 'EEE', { locale: locale.locale as any })}
+                {format(day, 'EEE', { locale: enUS })}
               </div>
             ))}
           </div>

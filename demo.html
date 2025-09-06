@@ -50,6 +50,13 @@
             margin-bottom: 50px;
         }
         
+        @media (min-width: 1200px) {
+            .demo-content {
+                grid-template-columns: 350px 1fr;
+                gap: 40px;
+            }
+        }
+        
         .demo-controls {
             background: white;
             padding: 25px;
@@ -117,6 +124,20 @@
             font-family: inherit;
         }
         
+        @media (min-width: 768px) {
+            .simple-calendar {
+                max-width: 500px;
+                padding: 25px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .simple-calendar {
+                max-width: 600px;
+                padding: 30px;
+            }
+        }
+        
         .calendar-header {
             display: flex;
             justify-content: space-between;
@@ -162,6 +183,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+        
+        @media (min-width: 768px) {
+            .calendar-day {
+                min-height: 48px;
+                padding: 12px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .calendar-day {
+                min-height: 56px;
+                padding: 14px;
+            }
         }
         
         .calendar-day:hover {

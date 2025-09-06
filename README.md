@@ -416,10 +416,9 @@ Check out the [demo](https://your-demo-url.com) for interactive examples and all
 
 ## 🐛 Issues
 
-If you find a bug or have a feature request, please create an issue on [GitHub](https://github.com/your-username/react-calendar-plus/issues).
+If you find a bug or have a feature request, please create an issue on [GitHub](https://github.com/sandeepbhatkande/react-calendar-plus/issues).
 
 ## 💬 Support
 
-- [GitHub Discussions](https://github.com/your-username/react-calendar-plus/discussions)
-- [Issues](https://github.com/your-username/react-calendar-plus/issues)
-- [Twitter](https://twitter.com/your-username) 
+- [GitHub Discussions](https://github.com/sandeepbhatkande/react-calendar-plus/discussions)
+- [Issues](https://github.com/sandeepbhatkande/react-calendar-plus/issues)

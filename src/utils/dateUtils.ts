@@ -19,6 +19,7 @@ import {
   eachDayOfInterval,
   getWeek,
 } from 'date-fns'
+import { enUS } from 'date-fns/locale'
 import { CalendarView, LocaleConfig, DateRange } from '../types'
 
 export const DEFAULT_LOCALE: LocaleConfig = {
@@ -62,7 +63,7 @@ export const formatDate = (
   date: Date,
   formatString: string
 ): string => {
-  return format(date, formatString)
+  return format(date, formatString, { locale: enUS })
 }
 
 export const formatDateForDisplay = (
@@ -131,19 +132,19 @@ export const isDateDisabled = (
 export const getViewTitle = (date: Date, view: CalendarView): string => {
   switch (view) {
     case 'month':
-      return format(date, 'MMMM yyyy')
+      return format(date, 'MMMM yyyy', { locale: enUS })
     case 'week':
       const weekStart = startOfWeek(date)
       const weekEnd = endOfWeek(date)
       if (isSameMonth(weekStart, weekEnd)) {
-        return `${format(weekStart, 'MMM d')} - ${format(weekEnd, 'd, yyyy')}`
+        return `${format(weekStart, 'MMM d', { locale: enUS })} - ${format(weekEnd, 'd, yyyy', { locale: enUS })}`
       } else {
-        return `${format(weekStart, 'MMM d')} - ${format(weekEnd, 'MMM d, yyyy')}`
+        return `${format(weekStart, 'MMM d', { locale: enUS })} - ${format(weekEnd, 'MMM d, yyyy', { locale: enUS })}`
       }
     case 'day':
-      return format(date, 'EEEE, MMMM d, yyyy')
+      return format(date, 'EEEE, MMMM d, yyyy', { locale: enUS })
     default:
-      return format(date, 'MMMM yyyy')
+      return format(date, 'MMMM yyyy', { locale: enUS })
   }
 }
 

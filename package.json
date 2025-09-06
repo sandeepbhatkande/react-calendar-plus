@@ -37,11 +37,11 @@
     "typescript",
     "component-library"
   ],
-  "author": "Your Name",
+  "author": "Sandeep Bhatkande",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/react-calendar-plus.git"
+    "url": "https://github.com/sandeepbhatkande/react-calendar-plus.git"
   },
   "peerDependencies": {
     "react": ">=16.8.0",

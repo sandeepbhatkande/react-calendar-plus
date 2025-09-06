@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { format } from 'date-fns'
+import { enUS } from 'date-fns/locale'
 import clsx from 'clsx'
 import { TimePickerProps } from '../types'
 
@@ -138,7 +139,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
 
       {/* Current time display */}
       <div className="rcp-time-picker__display">
-        {value && format(value, timeFormat === '12h' ? 'h:mm a' : 'HH:mm')}
+        {value && format(value, timeFormat === '12h' ? 'h:mm a' : 'HH:mm', { locale: enUS })}
       </div>
     </div>
   )
