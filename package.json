@@ -1,6 +1,6 @@
 {
   "name": "react-calendar-plus",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A flexible, themeable, and internationalized React calendar component with date and time selection. Includes month/week/day views, range selection, and custom event handling.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
