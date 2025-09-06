@@ -70,6 +70,9 @@ export interface CalendarProps {
   defaultValue?: Date | Date[] | DateRange | null
   onChange?: (value: Date | Date[] | DateRange | null) => void
   
+  // Interaction mode
+  interactionMode?: CalendarInteractionMode
+  
   // View and selection
   view?: CalendarView
   defaultView?: CalendarView
@@ -125,4 +128,33 @@ export interface TimePickerProps {
   minuteStep?: number
   disabled?: boolean
   className?: string
+}
+
+export type CalendarInteractionMode = 'standalone' | 'input'
+
+export interface CalendarInputProps extends Omit<CalendarProps, 'className'> {
+  // Input specific props
+  placeholder?: string
+  inputClassName?: string
+  calendarClassName?: string
+  showInput?: boolean
+  inputFormat?: string
+  disabled?: boolean
+  readOnly?: boolean
+  clearable?: boolean
+  onClear?: () => void
+  
+  // Dropdown specific props
+  dropdownPosition?: 'auto' | 'top' | 'bottom'
+  dropdownOffset?: number
+  closeOnSelect?: boolean
+  closeOnOutsideClick?: boolean
+  onOpen?: () => void
+  onClose?: () => void
+  
+  // Input field props
+  name?: string
+  id?: string
+  autoComplete?: string
+  required?: boolean
 } 

@@ -1,5 +1,6 @@
 // Main components
 export { Calendar } from './components/Calendar'
+export { CalendarInput } from './components/CalendarInput'
 export { TimePicker } from './components/TimePicker'
 export { CalendarHeader } from './components/CalendarHeader'
 export { CalendarDay } from './components/CalendarDay'
@@ -7,9 +8,11 @@ export { CalendarDay } from './components/CalendarDay'
 // Types
 export type {
   CalendarProps,
+  CalendarInputProps,
   TimePickerProps,
   CalendarView,
   SelectionMode,
+  CalendarInteractionMode,
   CalendarDate,
   DateRange,
   CalendarEvent,

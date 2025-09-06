@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Calendar, CalendarEvent, CalendarView, SelectionMode, DateRange } from '../index'
+import { Calendar, CalendarInput, CalendarEvent, CalendarView, SelectionMode, DateRange } from '../index'
 
 const sampleEvents: CalendarEvent[] = [
   {
@@ -26,13 +26,15 @@ const sampleEvents: CalendarEvent[] = [
 
 function App() {
   const [selectedDate, setSelectedDate] = useState<Date | Date[] | DateRange | null>(new Date())
+  const [inputDate, setInputDate] = useState<Date | Date[] | DateRange | null>(null)
   const [view, setView] = useState<CalendarView>('month')
   const [selectionMode, setSelectionMode] = useState<SelectionMode>('single')
   const [showTimePicker, setShowTimePicker] = useState(false)
   const [showWeekNumbers, setShowWeekNumbers] = useState(false)
   const [disableWeekends, setDisableWeekends] = useState(false)
-  const [showEvents, setShowEvents] = useState(true)
+  const [showEvents, setShowEvents] = useState(false)
   const [theme, setTheme] = useState('default')
+  const [interactionMode, setInteractionMode] = useState<'standalone' | 'input'>('standalone')
 
   const themes = {
     default: undefined,
@@ -99,12 +101,30 @@ function App() {
           
           <div className="control-group">
             <label>
+              <strong>Interaction Mode:</strong>
+              <select 
+                value={interactionMode} 
+                onChange={(e) => {
+                  setInteractionMode(e.target.value as 'standalone' | 'input')
+                  setSelectedDate(null)
+                  setInputDate(null)
+                }}
+              >
+                <option value="standalone">Standalone Calendar</option>
+                <option value="input">Input with Dropdown</option>
+              </select>
+            </label>
+          </div>
+
+          <div className="control-group">
+            <label>
               <strong>Selection Mode:</strong>
               <select 
                 value={selectionMode} 
                 onChange={(e) => {
                   setSelectionMode(e.target.value as SelectionMode)
                   setSelectedDate(null)
+                  setInputDate(null)
                 }}
               >
                 <option value="single">Single</option>
@@ -177,40 +197,83 @@ function App() {
           </div>
 
           <div className="selected-value">
-            <strong>Selected:</strong> {formatSelectedValue(selectedDate)}
+            <strong>Selected:</strong> {formatSelectedValue(interactionMode === 'standalone' ? selectedDate : inputDate)}
           </div>
         </div>
 
         {/* Calendar */}
         <div className="demo-calendar">
-          <Calendar
-            value={selectedDate}
-            onChange={setSelectedDate}
-            view={view}
-            onViewChange={setView}
-            selectionMode={selectionMode}
-            showTimePicker={showTimePicker}
-            showWeekNumbers={showWeekNumbers}
-            disableWeekends={disableWeekends}
-            events={showEvents ? sampleEvents : []}
-            theme={themes[theme as keyof typeof themes]}
-            responsive={true}
-            onDateClick={(date, event) => {
-              console.log('Date clicked:', date, event)
-            }}
-            onRangeSelect={(range) => {
-              console.log('Range selected:', range)
-            }}
-            onMonthChange={(date) => {
-              console.log('Month changed:', date)
-            }}
-            onWeekChange={(date) => {
-              console.log('Week changed:', date)
-            }}
-            onDayChange={(date) => {
-              console.log('Day changed:', date)
-            }}
-          />
+          {interactionMode === 'standalone' ? (
+            <Calendar
+              value={selectedDate}
+              onChange={setSelectedDate}
+              view={view}
+              onViewChange={setView}
+              selectionMode={selectionMode}
+              showTimePicker={showTimePicker}
+              showWeekNumbers={showWeekNumbers}
+              disableWeekends={disableWeekends}
+              events={showEvents ? sampleEvents : []}
+              theme={themes[theme as keyof typeof themes]}
+              responsive={true}
+              onDateClick={(date, event) => {
+                console.log('Date clicked:', date, event)
+              }}
+              onRangeSelect={(range) => {
+                console.log('Range selected:', range)
+              }}
+              onMonthChange={(date) => {
+                console.log('Month changed:', date)
+              }}
+              onWeekChange={(date) => {
+                console.log('Week changed:', date)
+              }}
+              onDayChange={(date) => {
+                console.log('Day changed:', date)
+              }}
+            />
+          ) : (
+            <div style={{ maxWidth: '300px' }}>
+              <CalendarInput
+                value={inputDate}
+                onChange={setInputDate}
+                view={view}
+                onViewChange={setView}
+                selectionMode={selectionMode}
+                showTimePicker={showTimePicker}
+                showWeekNumbers={showWeekNumbers}
+                disableWeekends={disableWeekends}
+                events={showEvents ? sampleEvents : []}
+                theme={themes[theme as keyof typeof themes]}
+                placeholder="Select a date..."
+                inputFormat="MM/dd/yyyy"
+                clearable={true}
+                closeOnSelect={selectionMode === 'single'}
+                dropdownPosition="auto"
+                onDateClick={(date, event) => {
+                  console.log('Date clicked:', date, event)
+                }}
+                onRangeSelect={(range) => {
+                  console.log('Range selected:', range)
+                }}
+                onMonthChange={(date) => {
+                  console.log('Month changed:', date)
+                }}
+                onWeekChange={(date) => {
+                  console.log('Week changed:', date)
+                }}
+                onDayChange={(date) => {
+                  console.log('Day changed:', date)
+                }}
+                onOpen={() => {
+                  console.log('Calendar opened')
+                }}
+                onClose={() => {
+                  console.log('Calendar closed')
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
 
@@ -219,7 +282,7 @@ function App() {
         <h3>Usage Examples</h3>
         
         <div className="example">
-          <h4>Basic Usage</h4>
+          <h4>Standalone Calendar</h4>
           <pre><code>{`import { Calendar } from 'react-calendar-plus'
 import 'react-calendar-plus/dist/style.css'
 
@@ -231,6 +294,27 @@ function MyComponent() {
       value={date}
       onChange={setDate}
       selectionMode="single"
+      interactionMode="standalone"
+    />
+  )
+}`}</code></pre>
+        </div>
+
+        <div className="example">
+          <h4>Input with Dropdown Calendar</h4>
+          <pre><code>{`import { CalendarInput } from 'react-calendar-plus'
+import 'react-calendar-plus/dist/style.css'
+
+function MyComponent() {
+  const [date, setDate] = useState(null)
+  
+  return (
+    <CalendarInput
+      value={date}
+      onChange={setDate}
+      placeholder="Select a date..."
+      clearable={true}
+      closeOnSelect={true}
     />
   )
 }`}</code></pre>

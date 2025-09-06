@@ -6,6 +6,7 @@ A comprehensive React calendar component with date/time selection, multiple view
 
 - 🗓️ **Multiple Views**: Month, Week, and Day views
 - 📅 **Flexible Selection**: Single date, date range, and multiple date selection
+- 🎛️ **Two Interaction Modes**: Standalone calendar or input field with dropdown
 - ⏰ **Time Picker**: Integrated time selection with 12h/24h formats
 - 🌍 **Internationalization**: Full locale support with customizable week start
 - 🎨 **Theming**: Extensive theming and custom styling support
@@ -28,6 +29,8 @@ pnpm add react-calendar-plus
 
 ## 🚀 Quick Start
 
+### Standalone Calendar
+
 ```tsx
 import React, { useState } from 'react'
 import { Calendar } from 'react-calendar-plus'
@@ -44,6 +47,68 @@ function App() {
     />
   )
 }
+```
+
+### Input with Dropdown Calendar
+
+```tsx
+import React, { useState } from 'react'
+import { CalendarInput } from 'react-calendar-plus'
+import 'react-calendar-plus/dist/style.css'
+
+function App() {
+  const [date, setDate] = useState(null)
+
+  return (
+    <CalendarInput
+      value={date}
+      onChange={setDate}
+      placeholder="Select a date..."
+      clearable={true}
+    />
+  )
+}
+```
+
+## 🎛️ Interaction Modes
+
+React Calendar Plus provides two distinct interaction modes to suit different use cases:
+
+### 1. Standalone Calendar (`Calendar`)
+
+Perfect for:
+- Dashboard widgets
+- Full-page calendar applications
+- Event management interfaces
+- Date browsing and navigation
+
+```tsx
+<Calendar
+  value={date}
+  onChange={setDate}
+  selectionMode="single"
+  view="month"
+  showTimePicker={true}
+/>
+```
+
+### 2. Input with Dropdown (`CalendarInput`)
+
+Perfect for:
+- Form inputs
+- Date picker fields
+- Compact UI designs
+- Mobile applications
+
+```tsx
+<CalendarInput
+  value={date}
+  onChange={setDate}
+  placeholder="Select a date..."
+  clearable={true}
+  closeOnSelect={true}
+  dropdownPosition="auto"
+/>
 ```
 
 ## 📖 Usage Examples
