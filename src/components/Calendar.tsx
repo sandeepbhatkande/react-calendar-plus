@@ -141,6 +141,23 @@ export const Calendar: React.FC<CalendarProps> = ({
     }
   }
 
+  // Handle direct date changes (from year/month selector)
+  const handleDateChange = (newDate: Date) => {
+    setCurrentDate(newDate)
+    
+    switch (currentView) {
+      case 'month':
+        onMonthChange?.(newDate)
+        break
+      case 'week':
+        onWeekChange?.(startOfWeek(newDate, { weekStartsOn: locale.weekStartsOn }))
+        break
+      case 'day':
+        onDayChange?.(newDate)
+        break
+    }
+  }
+
   // Handle date selection
   const handleDateClick = (date: Date, event: React.MouseEvent) => {
     onDateClick?.(date, event)
@@ -313,6 +330,9 @@ export const Calendar: React.FC<CalendarProps> = ({
           onPrevious={handlePrevious}
           onNext={handleNext}
           onViewChange={handleViewChange}
+          onDateChange={handleDateChange}
+          minDate={minDate}
+          maxDate={maxDate}
         />
       )}
 

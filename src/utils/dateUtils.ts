@@ -10,6 +10,8 @@ import {
   subDays,
   subWeeks,
   subMonths,
+  setYear,
+  setMonth,
   isSameDay,
   isSameMonth,
   isWithinInterval,
@@ -182,4 +184,27 @@ export const combineDateTime = (date: Date, time: Date): Date => {
 
 export const getWeekNumber = (date: Date): number => {
   return getWeek(date)
+}
+
+// Year and month navigation utilities
+export const navigateToYear = (date: Date, year: number): Date => {
+  return setYear(date, year)
+}
+
+export const navigateToMonth = (date: Date, month: number): Date => {
+  return setMonth(date, month)
+}
+
+export const navigateToYearMonth = (date: Date, year: number, month: number): Date => {
+  return setMonth(setYear(date, year), month)
+}
+
+export const getYearRange = (centerYear: number, range: number = 50): number[] => {
+  return Array.from({ length: range * 2 + 1 }, (_, i) => centerYear - range + i)
+}
+
+export const getMonthNames = (): string[] => {
+  return Array.from({ length: 12 }, (_, i) => 
+    format(new Date(2024, i, 1), 'MMMM', { locale: enUS })
+  )
 } 

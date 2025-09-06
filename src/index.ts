@@ -4,6 +4,7 @@ export { CalendarInput } from './components/CalendarInput'
 export { TimePicker } from './components/TimePicker'
 export { CalendarHeader } from './components/CalendarHeader'
 export { CalendarDay } from './components/CalendarDay'
+export { YearMonthSelector } from './components/YearMonthSelector'
 
 // Types
 export type {
@@ -33,6 +34,11 @@ export {
   isDateDisabled,
   getViewTitle,
   navigateDate,
+  navigateToYear,
+  navigateToMonth,
+  navigateToYearMonth,
+  getYearRange,
+  getMonthNames,
   parseDateTime,
   combineDateTime,
   getWeekNumber,

@@ -2,6 +2,7 @@ import React from 'react'
 import clsx from 'clsx'
 import { CalendarView } from '../types'
 import { getViewTitle } from '../utils/dateUtils'
+import { YearMonthSelector } from './YearMonthSelector'
 
 interface CalendarHeaderProps {
   currentDate: Date
@@ -9,6 +10,9 @@ interface CalendarHeaderProps {
   onPrevious: () => void
   onNext: () => void
   onViewChange: (view: CalendarView) => void
+  onDateChange?: (date: Date) => void
+  minDate?: Date
+  maxDate?: Date
   className?: string
 }
 
@@ -18,6 +22,9 @@ export const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   onPrevious,
   onNext,
   onViewChange,
+  onDateChange,
+  minDate,
+  maxDate,
   className,
 }) => {
   const viewOptions: { value: CalendarView; label: string }[] = [
@@ -40,9 +47,21 @@ export const CalendarHeader: React.FC<CalendarHeaderProps> = ({
           </svg>
         </button>
 
-        <h2 className="rcp-calendar-header__title">
-          {getViewTitle(currentDate, view)}
-        </h2>
+        <div className="rcp-calendar-header__title-section">
+          {view === 'month' && onDateChange ? (
+            <YearMonthSelector
+              currentDate={currentDate}
+              onDateChange={onDateChange}
+              minDate={minDate}
+              maxDate={maxDate}
+              className="rcp-calendar-header__year-month-selector"
+            />
+          ) : (
+            <h2 className="rcp-calendar-header__title">
+              {getViewTitle(currentDate, view)}
+            </h2>
+          )}
+        </div>
 
         <button
           type="button"
