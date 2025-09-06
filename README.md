@@ -182,6 +182,106 @@ const theme = {
 />
 ```
 
+### Custom Calendar Size
+
+#### Option 1: Inline Styles (Quick Changes)
+
+```tsx
+<Calendar
+  value={date}
+  onChange={setDate}
+  style={{
+    minWidth: '500px',
+    maxWidth: '700px'
+  }}
+/>
+```
+
+#### Option 2: CSS Classes (Component Level)
+
+```tsx
+<Calendar
+  value={date}
+  onChange={setDate}
+  className="my-custom-calendar"
+/>
+
+<style>
+.my-custom-calendar {
+  min-width: 500px;
+  max-width: 700px;
+}
+
+.my-custom-calendar .rcp-calendar-day {
+  min-height: 60px;
+  padding: 15px 8px;
+}
+</style>
+```
+
+#### Option 3: CSS Custom Properties (Theme-based)
+
+```tsx
+<Calendar
+  value={date}
+  onChange={setDate}
+  className="large-calendar"
+/>
+
+<style>
+.large-calendar {
+  --rcp-calendar-min-width: 500px;
+  --rcp-calendar-max-width: 700px;
+  --rcp-day-min-height: 50px;
+}
+</style>
+```
+
+#### Option 4: Global CSS Changes
+
+Add to your global CSS file:
+
+```css
+/* Change overall calendar size */
+.rcp-calendar {
+  min-width: 400px; /* Increase from 320px */
+  max-width: 800px; /* Add max-width */
+}
+
+/* Change responsive breakpoints */
+.rcp-calendar--responsive {
+  max-width: 600px; /* Increase from 420px */
+}
+
+@media (min-width: 768px) {
+  .rcp-calendar--responsive {
+    max-width: 700px; /* Increase from 500px */
+  }
+}
+
+/* Change day cell size */
+.rcp-calendar-day {
+  min-height: 50px; /* Increase from 40px */
+  padding: 12px 6px; /* Increase padding */
+}
+```
+
+#### Size Control Reference
+
+| Element | CSS Class | Property | Default |
+|---------|-----------|----------|---------|
+| Overall Calendar | `.rcp-calendar` | `min-width` | `320px` |
+| Responsive Calendar | `.rcp-calendar--responsive` | `max-width` | `420px` |
+| Day Cells | `.rcp-calendar-day` | `min-height` | `40px` |
+| Day Padding | `.rcp-calendar-day` | `padding` | `8px 4px` |
+| Header | `.rcp-calendar-header` | `padding` | `16px 20px` |
+
+#### Responsive Breakpoints
+
+- **Mobile**: `max-width: 640px` - Full width
+- **Tablet**: `min-width: 768px` - Max 500px  
+- **Desktop**: `min-width: 1024px` - Max 600px
+
 ### With Events
 
 ```tsx

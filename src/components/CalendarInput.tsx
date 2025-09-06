@@ -193,6 +193,70 @@ export const CalendarInput: React.FC<CalendarInputProps> = ({
     }
   }, [isOpen, onClose])
 
+  // Handle scroll and resize events to reposition dropdown
+  useEffect(() => {
+    let timeoutId: number | null = null
+
+    const handleScroll = () => {
+      if (isOpen && inputRef.current) {
+        // Throttle scroll events to improve performance
+        if (timeoutId) {
+          clearTimeout(timeoutId)
+        }
+        
+        timeoutId = setTimeout(() => {
+          const inputRect = inputRef.current!.getBoundingClientRect()
+          const viewportHeight = window.innerHeight
+          const viewportWidth = window.innerWidth
+          
+          // Close dropdown if input is completely out of view
+          if (inputRect.bottom < 0 || inputRect.top > viewportHeight || 
+              inputRect.right < 0 || inputRect.left > viewportWidth) {
+            setIsOpen(false)
+            onClose?.()
+            return
+          }
+          
+          let top = inputRect.bottom + dropdownOffset
+          let position: 'top' | 'bottom' = 'bottom'
+          
+          // Auto positioning - use estimated calendar height for initial positioning
+          if (dropdownPosition === 'auto') {
+            const spaceBelow = viewportHeight - inputRect.bottom
+            const estimatedCalendarHeight = 400 // Estimated height for calendar
+            
+            if (spaceBelow < estimatedCalendarHeight && inputRect.top > estimatedCalendarHeight) {
+              position = 'top'
+            }
+          } else if (dropdownPosition === 'top') {
+            position = 'top'
+          }
+          
+          setDropdownStyle({
+            position: 'fixed',
+            top: position === 'top' ? 'auto' : top,
+            bottom: position === 'top' ? viewportHeight - inputRect.top + dropdownOffset : 'auto',
+            left: inputRect.left,
+            zIndex: 1000,
+            minWidth: inputRect.width,
+          })
+        }, 16) // ~60fps throttling
+      }
+    }
+
+    if (isOpen) {
+      window.addEventListener('scroll', handleScroll, true) // Use capture to catch all scroll events
+      window.addEventListener('resize', handleScroll)
+      return () => {
+        if (timeoutId) {
+          clearTimeout(timeoutId)
+        }
+        window.removeEventListener('scroll', handleScroll, true)
+        window.removeEventListener('resize', handleScroll)
+      }
+    }
+  }, [isOpen, dropdownPosition, dropdownOffset])
+
   return (
     <div ref={containerRef} className="rcp-calendar-input">
       {showInput && (
