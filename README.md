@@ -1,6 +1,11 @@
 # React Calendar Plus
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-View%20Demo-blue?style=for-the-badge&logo=react)](https://sandeepbhatkande.github.io/react-calendar-plus/)
+[![NPM Package](https://img.shields.io/badge/NPM-Package-red?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/react-calendar-plus)
+
 A comprehensive React calendar component with date/time selection, multiple views, and full customization support. Built with TypeScript and designed for modern React applications.
+
+> **🎯 [Try the Live Demo](https://sandeepbhatkande.github.io/react-calendar-plus/)** - See all features in action!
 
 ## ✨ Features
 
