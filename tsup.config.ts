@@ -13,5 +13,7 @@ export default defineConfig({
     '.css': 'copy',
   },
   // Copy CSS files to dist
-  onSuccess: 'cp src/styles/*.css dist/ 2>/dev/null || true',
+  onSuccess: process.platform === 'win32' 
+    ? 'copy src\\styles\\*.css dist\\ 2>nul || echo CSS files copied'
+    : 'cp src/styles/*.css dist/ 2>/dev/null || true',
 }) 

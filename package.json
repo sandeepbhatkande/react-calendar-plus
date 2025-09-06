@@ -43,6 +43,11 @@
     "type": "git",
     "url": "https://github.com/sandeepbhatkande/react-calendar-plus.git"
   },
+  "homepage": "https://github.com/sandeepbhatkande/react-calendar-plus#readme",
+  "bugs": {
+    "url": "https://github.com/sandeepbhatkande/react-calendar-plus/issues"
+  },
+  "demo": "https://sandeepbhatkande.github.io/react-calendar-plus/",
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
